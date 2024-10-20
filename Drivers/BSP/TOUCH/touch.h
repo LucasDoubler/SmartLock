@@ -1,32 +1,4 @@
-/**
- ****************************************************************************************************
- * @file        touch.h
- * @author      ÕıµãÔ­×ÓÍÅ¶Ó(ALIENTEK)
- * @version     V1.1
- * @date        2022-09-06
- * @brief       ´¥ÃşÆÁ Çı¶¯´úÂë
- *   @note      Ö§³Öµç×è/µçÈİÊ½´¥ÃşÆÁ
- *              ´¥ÃşÆÁÇı¶¯£¨Ö§³ÖADS7843/7846/UH7843/7846/XPT2046/TSC2046/GT9147/GT9271/FT5206µÈ£©´úÂë
- *
- * @license     Copyright (c) 2020-2032, ¹ãÖİÊĞĞÇÒíµç×Ó¿Æ¼¼ÓĞÏŞ¹«Ë¾
- ****************************************************************************************************
- * @attention
- *
- * ÊµÑéÆ½Ì¨:ÕıµãÔ­×Ó °¢²¨ÂŞ H743¿ª·¢°å
- * ÔÚÏßÊÓÆµ:www.yuanzige.com
- * ¼¼ÊõÂÛÌ³:www.oT_PENedv.com
- * ¹«Ë¾ÍøÖ·:www.alientek.com
- * ¹ºÂòµØÖ·:oT_PENedv.taobao.com
- *
- * ĞŞ¸ÄËµÃ÷
- * V1.0 20220906
- * µÚÒ»´Î·¢²¼
- * V1.1 20230607
- * 1£¬ĞÂÔö¶ÔST7796 3.5´çÆÁ GT1151µÄÖ§³Ö
- * 2£¬ĞÂÔö¶ÔILI9806 4.3´çÆÁ GT1151µÄÖ§³Ö
- *
- ****************************************************************************************************
- */
+
 
 #ifndef __TOUCH_H__
 #define __TOUCH_H__
@@ -37,30 +9,30 @@
 
 /******************************************************************************************/
 
-/* µç×è´¥ÃşÆÁÇı¶¯IC T_PEN/T_CS/T_MISO/T_MOSI/T_SCK Òı½Å ¶¨Òå */
+/* ç”µé˜»è§¦æ‘¸å±é©±åŠ¨IC T_PEN/T_CS/T_MISO/T_MOSI/T_SCK å¼•è„š å®šä¹‰ */
 #define T_PEN_GPIO_PORT                 GPIOH
 #define T_PEN_GPIO_PIN                  GPIO_PIN_7
-#define T_PEN_GPIO_CLK_ENABLE()         do{ __HAL_RCC_GPIOH_CLK_ENABLE(); }while(0)   /* ËùÔÚIO¿ÚÊ±ÖÓÊ¹ÄÜ */
+#define T_PEN_GPIO_CLK_ENABLE()         do{ __HAL_RCC_GPIOH_CLK_ENABLE(); }while(0)   /* æ‰€åœ¨IOå£æ—¶é’Ÿä½¿èƒ½ */
 
 #define T_CS_GPIO_PORT                  GPIOI
 #define T_CS_GPIO_PIN                   GPIO_PIN_8
-#define T_CS_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOI_CLK_ENABLE(); }while(0)   /* ËùÔÚIO¿ÚÊ±ÖÓÊ¹ÄÜ */
+#define T_CS_GPIO_CLK_ENABLE()          do{ __HAL_RCC_GPIOI_CLK_ENABLE(); }while(0)   /* æ‰€åœ¨IOå£æ—¶é’Ÿä½¿èƒ½ */
 
 #define T_MISO_GPIO_PORT                GPIOG
 #define T_MISO_GPIO_PIN                 GPIO_PIN_3
-#define T_MISO_GPIO_CLK_ENABLE()        do{ __HAL_RCC_GPIOG_CLK_ENABLE(); }while(0)   /* ËùÔÚIO¿ÚÊ±ÖÓÊ¹ÄÜ */
+#define T_MISO_GPIO_CLK_ENABLE()        do{ __HAL_RCC_GPIOG_CLK_ENABLE(); }while(0)   /* æ‰€åœ¨IOå£æ—¶é’Ÿä½¿èƒ½ */
 
 #define T_MOSI_GPIO_PORT                GPIOI
 #define T_MOSI_GPIO_PIN                 GPIO_PIN_3
-#define T_MOSI_GPIO_CLK_ENABLE()        do{ __HAL_RCC_GPIOI_CLK_ENABLE(); }while(0)   /* ËùÔÚIO¿ÚÊ±ÖÓÊ¹ÄÜ */
+#define T_MOSI_GPIO_CLK_ENABLE()        do{ __HAL_RCC_GPIOI_CLK_ENABLE(); }while(0)   /* æ‰€åœ¨IOå£æ—¶é’Ÿä½¿èƒ½ */
 
 #define T_CLK_GPIO_PORT                 GPIOH
 #define T_CLK_GPIO_PIN                  GPIO_PIN_6
-#define T_CLK_GPIO_CLK_ENABLE()         do{ __HAL_RCC_GPIOH_CLK_ENABLE(); }while(0)   /* ËùÔÚIO¿ÚÊ±ÖÓÊ¹ÄÜ */
+#define T_CLK_GPIO_CLK_ENABLE()         do{ __HAL_RCC_GPIOH_CLK_ENABLE(); }while(0)   /* æ‰€åœ¨IOå£æ—¶é’Ÿä½¿èƒ½ */
 
 /******************************************************************************************/
 
-/* µç×è´¥ÃşÆÁ¿ØÖÆÒı½Å */
+/* ç”µé˜»è§¦æ‘¸å±æ§åˆ¶å¼•è„š */
 #define T_PEN           HAL_GPIO_ReadPin(T_PEN_GPIO_PORT, T_PEN_GPIO_PIN)             /* T_PEN */
 #define T_MISO          HAL_GPIO_ReadPin(T_MISO_GPIO_PORT, T_MISO_GPIO_PIN)           /* T_MISO */
 
@@ -79,63 +51,63 @@
                           HAL_GPIO_WritePin(T_CS_GPIO_PORT, T_CS_GPIO_PIN, GPIO_PIN_RESET); \
                       }while(0)                                                       /* T_CS */
 
-#define TP_PRES_DOWN    0x8000  /* ´¥ÆÁ±»°´ÏÂ */
-#define TP_CATH_PRES    0x4000  /* ÓĞ°´¼ü°´ÏÂÁË */
-#define CT_MAX_TOUCH    10      /* µçÈİÆÁÖ§³ÖµÄµãÊı,¹Ì¶¨Îª5µã */
+#define TP_PRES_DOWN    0x8000  /* è§¦å±è¢«æŒ‰ä¸‹ */
+#define TP_CATH_PRES    0x4000  /* æœ‰æŒ‰é”®æŒ‰ä¸‹äº† */
+#define CT_MAX_TOUCH    10      /* ç”µå®¹å±æ”¯æŒçš„ç‚¹æ•°,å›ºå®šä¸º5ç‚¹ */
 
-/* ´¥ÃşÆÁ¿ØÖÆÆ÷ */
+/* è§¦æ‘¸å±æ§åˆ¶å™¨ */
 typedef struct
 {
-    uint8_t (*init)(void);      /* ³õÊ¼»¯´¥ÃşÆÁ¿ØÖÆÆ÷ */
-    uint8_t (*scan)(uint8_t);   /* É¨Ãè´¥ÃşÆÁ.0,ÆÁÄ»É¨Ãè;1,ÎïÀí×ø±ê; */
-    void (*adjust)(void);       /* ´¥ÃşÆÁĞ£×¼ */
-    uint16_t x[CT_MAX_TOUCH];   /* µ±Ç°×ø±ê */
-    uint16_t y[CT_MAX_TOUCH];   /* µçÈİÆÁÓĞ×î¶à10×é×ø±ê,µç×èÆÁÔòÓÃx[0],y[0]´ú±í:´Ë´ÎÉ¨ÃèÊ±,´¥ÆÁµÄ×ø±ê,ÓÃ
-                                 * x[9],y[9]´æ´¢µÚÒ»´Î°´ÏÂÊ±µÄ×ø±ê.
+    uint8_t (*init)(void);      /* åˆå§‹åŒ–è§¦æ‘¸å±æ§åˆ¶å™¨ */
+    uint8_t (*scan)(uint8_t);   /* æ‰«æè§¦æ‘¸å±.0,å±å¹•æ‰«æ;1,ç‰©ç†åæ ‡; */
+    void (*adjust)(void);       /* è§¦æ‘¸å±æ ¡å‡† */
+    uint16_t x[CT_MAX_TOUCH];   /* å½“å‰åæ ‡ */
+    uint16_t y[CT_MAX_TOUCH];   /* ç”µå®¹å±æœ‰æœ€å¤š10ç»„åæ ‡,ç”µé˜»å±åˆ™ç”¨x[0],y[0]ä»£è¡¨:æ­¤æ¬¡æ‰«ææ—¶,è§¦å±çš„åæ ‡,ç”¨
+                                 * x[9],y[9]å­˜å‚¨ç¬¬ä¸€æ¬¡æŒ‰ä¸‹æ—¶çš„åæ ‡.
                                  */
 
-    uint16_t sta;               /* ±ÊµÄ×´Ì¬
-                                 * b15:°´ÏÂ1/ËÉ¿ª0;
-                                 * b14:0,Ã»ÓĞ°´¼ü°´ÏÂ;1,ÓĞ°´¼ü°´ÏÂ.
-                                 * b13~b10:±£Áô
-                                 * b9~b0:µçÈİ´¥ÃşÆÁ°´ÏÂµÄµãÊı(0,±íÊ¾Î´°´ÏÂ,1±íÊ¾°´ÏÂ)
+    uint16_t sta;               /* ç¬”çš„çŠ¶æ€
+                                 * b15:æŒ‰ä¸‹1/æ¾å¼€0;
+                                 * b14:0,æ²¡æœ‰æŒ‰é”®æŒ‰ä¸‹;1,æœ‰æŒ‰é”®æŒ‰ä¸‹.
+                                 * b13~b10:ä¿ç•™
+                                 * b9~b0:ç”µå®¹è§¦æ‘¸å±æŒ‰ä¸‹çš„ç‚¹æ•°(0,è¡¨ç¤ºæœªæŒ‰ä¸‹,1è¡¨ç¤ºæŒ‰ä¸‹)
                                  */
 
-    /* 5µãĞ£×¼´¥ÃşÆÁĞ£×¼²ÎÊı(µçÈİÆÁ²»ĞèÒªĞ£×¼) */
-    float xfac;                 /* 5µãĞ£×¼·¨x·½Ïò±ÈÀıÒò×Ó */
-    float yfac;                 /* 5µãĞ£×¼·¨y·½Ïò±ÈÀıÒò×Ó */
-    short xc;                   /* ÖĞĞÄX×ø±êÎïÀíÖµ(ADÖµ) */
-    short yc;                   /* ÖĞĞÄY×ø±êÎïÀíÖµ(ADÖµ) */
+    /* 5ç‚¹æ ¡å‡†è§¦æ‘¸å±æ ¡å‡†å‚æ•°(ç”µå®¹å±ä¸éœ€è¦æ ¡å‡†) */
+    float xfac;                 /* 5ç‚¹æ ¡å‡†æ³•xæ–¹å‘æ¯”ä¾‹å› å­ */
+    float yfac;                 /* 5ç‚¹æ ¡å‡†æ³•yæ–¹å‘æ¯”ä¾‹å› å­ */
+    short xc;                   /* ä¸­å¿ƒXåæ ‡ç‰©ç†å€¼(ADå€¼) */
+    short yc;                   /* ä¸­å¿ƒYåæ ‡ç‰©ç†å€¼(ADå€¼) */
 
-    /* ĞÂÔöµÄ²ÎÊı,µ±´¥ÃşÆÁµÄ×óÓÒÉÏÏÂÍêÈ«µßµ¹Ê±ĞèÒªÓÃµ½.
-     * b0:0, ÊúÆÁ(ÊÊºÏ×óÓÒÎªX×ø±ê,ÉÏÏÂÎªY×ø±êµÄTP)
-     *    1, ºáÆÁ(ÊÊºÏ×óÓÒÎªY×ø±ê,ÉÏÏÂÎªX×ø±êµÄTP)
-     * b1~6: ±£Áô.
-     * b7:0, µç×èÆÁ
-     *    1, µçÈİÆÁ
+    /* æ–°å¢çš„å‚æ•°,å½“è§¦æ‘¸å±çš„å·¦å³ä¸Šä¸‹å®Œå…¨é¢ å€’æ—¶éœ€è¦ç”¨åˆ°.
+     * b0:0, ç«–å±(é€‚åˆå·¦å³ä¸ºXåæ ‡,ä¸Šä¸‹ä¸ºYåæ ‡çš„TP)
+     *    1, æ¨ªå±(é€‚åˆå·¦å³ä¸ºYåæ ‡,ä¸Šä¸‹ä¸ºXåæ ‡çš„TP)
+     * b1~6: ä¿ç•™.
+     * b7:0, ç”µé˜»å±
+     *    1, ç”µå®¹å±
      */
     uint8_t touchtype;
 } _m_tp_dev;
 
-extern _m_tp_dev tp_dev;                                                    /* ´¥ÆÁ¿ØÖÆÆ÷ÔÚtouch.cÀïÃæ¶¨Òå */
+extern _m_tp_dev tp_dev;                                                    /* è§¦å±æ§åˆ¶å™¨åœ¨touch.cé‡Œé¢å®šä¹‰ */
 
 /******************************************************************************************/
 
-/* µç×èÆÁº¯Êı */
-static void tp_write_byte(uint8_t data);                                    /* Ïò¿ØÖÆĞ¾Æ¬Ğ´ÈëÒ»¸öÊı¾İ */
-static uint16_t tp_read_ad(uint8_t cmd);                                    /* ¶ÁÈ¡AD×ª»»Öµ */
-static uint16_t tp_read_xoy(uint8_t cmd);                                   /* ´øÂË²¨µÄ×ø±ê¶ÁÈ¡(X/Y) */
-static void tp_read_xy(uint16_t *x, uint16_t *y);                           /* Ë«·½Ïò¶ÁÈ¡(X+Y) */
-static uint8_t tp_read_xy2(uint16_t *x, uint16_t *y);                       /* ´ø¼ÓÇ¿ÂË²¨µÄË«·½Ïò×ø±ê¶ÁÈ¡ */
-static void tp_draw_touch_point(uint16_t x, uint16_t y, uint16_t color);    /* »­Ò»¸ö×ø±êĞ£×¼µã */
-static void tp_adjust_info_show(uint16_t xy[5][2], double px, double py);   /* ÏÔÊ¾Ğ£×¼ĞÅÏ¢ */
+/* ç”µé˜»å±å‡½æ•° */
+static void tp_write_byte(uint8_t data);                                    /* å‘æ§åˆ¶èŠ¯ç‰‡å†™å…¥ä¸€ä¸ªæ•°æ® */
+static uint16_t tp_read_ad(uint8_t cmd);                                    /* è¯»å–ADè½¬æ¢å€¼ */
+static uint16_t tp_read_xoy(uint8_t cmd);                                   /* å¸¦æ»¤æ³¢çš„åæ ‡è¯»å–(X/Y) */
+static void tp_read_xy(uint16_t *x, uint16_t *y);                           /* åŒæ–¹å‘è¯»å–(X+Y) */
+static uint8_t tp_read_xy2(uint16_t *x, uint16_t *y);                       /* å¸¦åŠ å¼ºæ»¤æ³¢çš„åŒæ–¹å‘åæ ‡è¯»å– */
+static void tp_draw_touch_point(uint16_t x, uint16_t y, uint16_t color);    /* ç”»ä¸€ä¸ªåæ ‡æ ¡å‡†ç‚¹ */
+static void tp_adjust_info_show(uint16_t xy[5][2], double px, double py);   /* æ˜¾ç¤ºæ ¡å‡†ä¿¡æ¯ */
 
-uint8_t tp_init(void);                                                      /* ³õÊ¼»¯ */
-static uint8_t tp_scan(uint8_t mode);                                       /* É¨Ãè */
-void tp_adjust(void);                                                       /* ´¥ÃşÆÁĞ£×¼ */
-void tp_save_adjust_data(void);                                             /* ±£´æĞ£×¼²ÎÊı */
-uint8_t tp_get_adjust_data(void);                                           /* ¶ÁÈ¡Ğ£×¼²ÎÊı */
-void tp_draw_big_point(uint16_t x, uint16_t y, uint16_t color);             /* »­Ò»¸ö´óµã */
+uint8_t tp_init(void);                                                      /* åˆå§‹åŒ– */
+static uint8_t tp_scan(uint8_t mode);                                       /* æ‰«æ */
+void tp_adjust(void);                                                       /* è§¦æ‘¸å±æ ¡å‡† */
+void tp_save_adjust_data(void);                                             /* ä¿å­˜æ ¡å‡†å‚æ•° */
+uint8_t tp_get_adjust_data(void);                                           /* è¯»å–æ ¡å‡†å‚æ•° */
+void tp_draw_big_point(uint16_t x, uint16_t y, uint16_t color);             /* ç”»ä¸€ä¸ªå¤§ç‚¹ */
 
 #endif
 
