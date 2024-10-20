@@ -1,32 +1,3 @@
-/**
- ****************************************************************************************************
- * @file        gt9xxx.h
- * @author      ÕýµãÔ­×ÓÍÅ¶Ó(ALIENTEK)
- * @version     V1.1
- * @date        2022-09-06
- * @brief       4.3´çµçÈÝ´¥ÃþÆÁ-GT9xxx Çý¶¯´úÂë
- *   @note      GTÏµÁÐµçÈÝ´¥ÃþÆÁICÍ¨ÓÃÇý¶¯,±¾´úÂëÖ§³Ö: GT9147/GT917S/GT968/GT1151/GT9271 µÈ¶àÖÖ
- *              Çý¶¯IC, ÕâÐ©Çý¶¯IC½öID²»Ò»Ñù, ¾ßÌå´úÂë»ù±¾²»ÐèÒª×öÈÎºÎÐÞ¸Ä¼´¿ÉÍ¨¹ý±¾´úÂëÖ±½ÓÇý¶¯
- *
- * @license     Copyright (c) 2020-2032, ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾
- ****************************************************************************************************
- * @attention
- *
- * ÊµÑéÆ½Ì¨:ÕýµãÔ­×Ó °¢²¨ÂÞ H743¿ª·¢°å
- * ÔÚÏßÊÓÆµ:www.yuanzige.com
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ¹«Ë¾ÍøÖ·:www.alientek.com
- * ¹ºÂòµØÖ·:openedv.taobao.com
- *
- * ÐÞ¸ÄËµÃ÷
- * V1.0 20220906
- * µÚÒ»´Î·¢²¼
- * V1.1 20230607
- * 1£¬ÐÂÔö¶ÔST7796 3.5´çÆÁ GT1151µÄÖ§³Ö
- * 2£¬ÐÂÔö¶ÔILI9806 4.3´çÆÁ GT1151µÄÖ§³Ö
- *
- ****************************************************************************************************
- */
 
 #ifndef __GT9XXX_H
 #define __GT9XXX_H
@@ -36,48 +7,48 @@
 
 /******************************************************************************************/
 
-/* GT9XXX INT ºÍ RST Òý½Å ¶¨Òå */
+/* GT9XXX INT å’Œ RST å¼•è„š å®šä¹‰ */
 #define GT9XXX_RST_GPIO_PORT            GPIOI
 #define GT9XXX_RST_GPIO_PIN             GPIO_PIN_8
-#define GT9XXX_RST_GPIO_CLK_ENABLE()    do{ __HAL_RCC_GPIOI_CLK_ENABLE(); }while(0)     /* PI¿ÚÊ±ÖÓÊ¹ÄÜ */
+#define GT9XXX_RST_GPIO_CLK_ENABLE()    do{ __HAL_RCC_GPIOI_CLK_ENABLE(); }while(0)     /* PIå£æ—¶é’Ÿä½¿èƒ½ */
 
 #define GT9XXX_INT_GPIO_PORT            GPIOH
 #define GT9XXX_INT_GPIO_PIN             GPIO_PIN_7
-#define GT9XXX_INT_GPIO_CLK_ENABLE()    do{ __HAL_RCC_GPIOH_CLK_ENABLE(); }while(0)     /* PH¿ÚÊ±ÖÓÊ¹ÄÜ */
+#define GT9XXX_INT_GPIO_CLK_ENABLE()    do{ __HAL_RCC_GPIOH_CLK_ENABLE(); }while(0)     /* PHå£æ—¶é’Ÿä½¿èƒ½ */
 
 /******************************************************************************************/
 
-/* ÓëµçÈÝ´¥ÃþÆÁÁ¬½ÓµÄÐ¾Æ¬Òý½Å(Î´°üº¬IICÒý½Å) 
- * IO²Ù×÷º¯Êý 
+/* ä¸Žç”µå®¹è§¦æ‘¸å±è¿žæŽ¥çš„èŠ¯ç‰‡å¼•è„š(æœªåŒ…å«IICå¼•è„š) 
+ * IOæ“ä½œå‡½æ•° 
  */
 #define GT9XXX_RST(x)     do{ x ? \
                               HAL_GPIO_WritePin(GT9XXX_RST_GPIO_PORT, GT9XXX_RST_GPIO_PIN, GPIO_PIN_SET) : \
                               HAL_GPIO_WritePin(GT9XXX_RST_GPIO_PORT, GT9XXX_RST_GPIO_PIN, GPIO_PIN_RESET); \
-                          }while(0)                                                       /* ¸´Î»Òý½Å */
+                          }while(0)                                                       /* å¤ä½å¼•è„š */
 
-#define GT9XXX_INT        HAL_GPIO_ReadPin(GT9XXX_INT_GPIO_PORT, GT9XXX_INT_GPIO_PIN)     /* ¶ÁÈ¡×öµÄÒý½Å */
+#define GT9XXX_INT        HAL_GPIO_ReadPin(GT9XXX_INT_GPIO_PORT, GT9XXX_INT_GPIO_PIN)     /* è¯»å–åšçš„å¼•è„š */
 
-/* IIC¶ÁÐ´ÃüÁî */
-#define GT9XXX_CMD_WR       0X28        /* Ð´ÃüÁî */
-#define GT9XXX_CMD_RD       0X29        /* ¶ÁÃüÁî */
+/* IICè¯»å†™å‘½ä»¤ */
+#define GT9XXX_CMD_WR       0X28        /* å†™å‘½ä»¤ */
+#define GT9XXX_CMD_RD       0X29        /* è¯»å‘½ä»¤ */
 
-/* GT9XXX ²¿·Ö¼Ä´æÆ÷¶¨Òå  */
-#define GT9XXX_CTRL_REG     0X8040      /* GT9XXX¿ØÖÆ¼Ä´æÆ÷ */
-#define GT9XXX_CFGS_REG     0X8047      /* GT9XXXÅäÖÃÆðÊ¼µØÖ·¼Ä´æÆ÷ */
-#define GT9XXX_CHECK_REG    0X80FF      /* GT9XXXÐ£ÑéºÍ¼Ä´æÆ÷ */
-#define GT9XXX_PID_REG      0X8140      /* GT9XXX²úÆ·ID¼Ä´æÆ÷ */
+/* GT9XXX éƒ¨åˆ†å¯„å­˜å™¨å®šä¹‰  */
+#define GT9XXX_CTRL_REG     0X8040      /* GT9XXXæŽ§åˆ¶å¯„å­˜å™¨ */
+#define GT9XXX_CFGS_REG     0X8047      /* GT9XXXé…ç½®èµ·å§‹åœ°å€å¯„å­˜å™¨ */
+#define GT9XXX_CHECK_REG    0X80FF      /* GT9XXXæ ¡éªŒå’Œå¯„å­˜å™¨ */
+#define GT9XXX_PID_REG      0X8140      /* GT9XXXäº§å“IDå¯„å­˜å™¨ */
 
-#define GT9XXX_GSTID_REG    0X814E      /* GT9XXXµ±Ç°¼ì²âµ½µÄ´¥ÃþÇé¿ö */
-#define GT9XXX_TP1_REG      0X8150      /* µÚÒ»¸ö´¥ÃþµãÊý¾ÝµØÖ· */
-#define GT9XXX_TP2_REG      0X8158      /* µÚ¶þ¸ö´¥ÃþµãÊý¾ÝµØÖ· */
-#define GT9XXX_TP3_REG      0X8160      /* µÚÈý¸ö´¥ÃþµãÊý¾ÝµØÖ· */
-#define GT9XXX_TP4_REG      0X8168      /* µÚËÄ¸ö´¥ÃþµãÊý¾ÝµØÖ· */
-#define GT9XXX_TP5_REG      0X8170      /* µÚÎå¸ö´¥ÃþµãÊý¾ÝµØÖ· */
-#define GT9XXX_TP6_REG      0X8178      /* µÚÁù¸ö´¥ÃþµãÊý¾ÝµØÖ· */
-#define GT9XXX_TP7_REG      0X8180      /* µÚÆß¸ö´¥ÃþµãÊý¾ÝµØÖ· */
-#define GT9XXX_TP8_REG      0X8188      /* µÚ°Ë¸ö´¥ÃþµãÊý¾ÝµØÖ· */
-#define GT9XXX_TP9_REG      0X8190      /* µÚ¾Å¸ö´¥ÃþµãÊý¾ÝµØÖ· */
-#define GT9XXX_TP10_REG     0X8198      /* µÚÊ®¸ö´¥ÃþµãÊý¾ÝµØÖ· */
+#define GT9XXX_GSTID_REG    0X814E      /* GT9XXXå½“å‰æ£€æµ‹åˆ°çš„è§¦æ‘¸æƒ…å†µ */
+#define GT9XXX_TP1_REG      0X8150      /* ç¬¬ä¸€ä¸ªè§¦æ‘¸ç‚¹æ•°æ®åœ°å€ */
+#define GT9XXX_TP2_REG      0X8158      /* ç¬¬äºŒä¸ªè§¦æ‘¸ç‚¹æ•°æ®åœ°å€ */
+#define GT9XXX_TP3_REG      0X8160      /* ç¬¬ä¸‰ä¸ªè§¦æ‘¸ç‚¹æ•°æ®åœ°å€ */
+#define GT9XXX_TP4_REG      0X8168      /* ç¬¬å››ä¸ªè§¦æ‘¸ç‚¹æ•°æ®åœ°å€ */
+#define GT9XXX_TP5_REG      0X8170      /* ç¬¬äº”ä¸ªè§¦æ‘¸ç‚¹æ•°æ®åœ°å€ */
+#define GT9XXX_TP6_REG      0X8178      /* ç¬¬å…­ä¸ªè§¦æ‘¸ç‚¹æ•°æ®åœ°å€ */
+#define GT9XXX_TP7_REG      0X8180      /* ç¬¬ä¸ƒä¸ªè§¦æ‘¸ç‚¹æ•°æ®åœ°å€ */
+#define GT9XXX_TP8_REG      0X8188      /* ç¬¬å…«ä¸ªè§¦æ‘¸ç‚¹æ•°æ®åœ°å€ */
+#define GT9XXX_TP9_REG      0X8190      /* ç¬¬ä¹ä¸ªè§¦æ‘¸ç‚¹æ•°æ®åœ°å€ */
+#define GT9XXX_TP10_REG     0X8198      /* ç¬¬åä¸ªè§¦æ‘¸ç‚¹æ•°æ®åœ°å€ */
 
 /******************************************************************************************/
 
