@@ -1,90 +1,68 @@
-/**
- ****************************************************************************************************
- * @file        btim.c
- * @author      ÕýµãÔ­×ÓÍÅ¶Ó(ALIENTEK)
- * @version     V1.0
- * @date        2022-09-06
- * @brief       »ù±¾¶¨Ê±Æ÷ Çý¶¯´úÂë
- * @license     Copyright (c) 2020-2032, ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾
- ****************************************************************************************************
- * @attention
- *
- * ÊµÑéÆ½Ì¨:ÕýµãÔ­×Ó °¢²¨ÂÞ H743¿ª·¢°å
- * ÔÚÏßÊÓÆµ:www.yuanzige.com
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ¹«Ë¾ÍøÖ·:www.alientek.com
- * ¹ºÂòµØÖ·:openedv.taobao.com
- *
- * ÐÞ¸ÄËµÃ÷
- * V1.0 20220906
- * µÚÒ»´Î·¢²¼
- *
- ****************************************************************************************************
- */
+
 
 #include "./BSP/TIMER/btim.h"
 #include "lvgl.h"
 
-TIM_HandleTypeDef g_timx_handle;                                /* ¶¨Ê±Æ÷²ÎÊý¾ä±ú */
+TIM_HandleTypeDef g_timx_handle;                                /* å®šæ—¶å™¨å‚æ•°å¥æŸ„ */
 
 /**
- * @brief       »ù±¾¶¨Ê±Æ÷TIMX¶¨Ê±ÖÐ¶Ï³õÊ¼»¯º¯Êý
+ * @brief       åŸºæœ¬å®šæ—¶å™¨TIMXå®šæ—¶ä¸­æ–­åˆå§‹åŒ–å‡½æ•°
  * @note
- *              »ù±¾¶¨Ê±Æ÷µÄÊ±ÖÓÀ´×ÔAPB1,µ±PPRE1 ¡Ý 2·ÖÆµµÄÊ±ºò
- *              »ù±¾¶¨Ê±Æ÷µÄÊ±ÖÓÎªAPB1Ê±ÖÓµÄ2±¶, ¶øAPB1Îª120M, ËùÒÔ¶¨Ê±Æ÷Ê±ÖÓ = 240Mhz
- *              ¶¨Ê±Æ÷Òç³öÊ±¼ä¼ÆËã·½·¨: Tout = ((arr + 1) * (psc + 1)) / Ft us.
- *              Ft=¶¨Ê±Æ÷¹¤×÷ÆµÂÊ,µ¥Î»:Mhz
+ *              åŸºæœ¬å®šæ—¶å™¨çš„æ—¶é’Ÿæ¥è‡ªAPB1,å½“PPRE1 â‰¥ 2åˆ†é¢‘çš„æ—¶å€™
+ *              åŸºæœ¬å®šæ—¶å™¨çš„æ—¶é’Ÿä¸ºAPB1æ—¶é’Ÿçš„2å€, è€ŒAPB1ä¸º120M, æ‰€ä»¥å®šæ—¶å™¨æ—¶é’Ÿ = 240Mhz
+ *              å®šæ—¶å™¨æº¢å‡ºæ—¶é—´è®¡ç®—æ–¹æ³•: Tout = ((arr + 1) * (psc + 1)) / Ft us.
+ *              Ft=å®šæ—¶å™¨å·¥ä½œé¢‘çŽ‡,å•ä½:Mhz
  *
- * @param       arr : ×Ô¶¯ÖØ×°Öµ¡£
- * @param       psc : Ê±ÖÓÔ¤·ÖÆµÊý
- * @retval      ÎÞ
+ * @param       arr : è‡ªåŠ¨é‡è£…å€¼ã€‚
+ * @param       psc : æ—¶é’Ÿé¢„åˆ†é¢‘æ•°
+ * @retval      æ— 
  */
 void btim_timx_int_init(uint16_t arr, uint16_t psc)
 {
-    g_timx_handle.Instance = BTIM_TIMX_INT;                      /* ¶¨Ê±Æ÷x */
-    g_timx_handle.Init.Prescaler = psc;                          /* ·ÖÆµ */
-    g_timx_handle.Init.CounterMode = TIM_COUNTERMODE_UP;         /* µÝÔö¼ÆÊýÄ£Ê½ */
-    g_timx_handle.Init.Period = arr;                             /* ×Ô¶¯×°ÔØÖµ */
+    g_timx_handle.Instance = BTIM_TIMX_INT;                      /* å®šæ—¶å™¨x */
+    g_timx_handle.Init.Prescaler = psc;                          /* åˆ†é¢‘ */
+    g_timx_handle.Init.CounterMode = TIM_COUNTERMODE_UP;         /* é€’å¢žè®¡æ•°æ¨¡å¼ */
+    g_timx_handle.Init.Period = arr;                             /* è‡ªåŠ¨è£…è½½å€¼ */
     HAL_TIM_Base_Init(&g_timx_handle);
     
-    HAL_TIM_Base_Start_IT(&g_timx_handle);                       /* Ê¹ÄÜ¶¨Ê±Æ÷xºÍ¶¨Ê±Æ÷¸üÐÂÖÐ¶Ï */
+    HAL_TIM_Base_Start_IT(&g_timx_handle);                       /* ä½¿èƒ½å®šæ—¶å™¨xå’Œå®šæ—¶å™¨æ›´æ–°ä¸­æ–­ */
 }
 
 /**
- * @brief       ¶¨Ê±Æ÷µ×²ãÇý¶¯£¬¿ªÆôÊ±ÖÓ£¬ÉèÖÃÖÐ¶ÏÓÅÏÈ¼¶
-                ´Ëº¯Êý»á±»HAL_TIM_Base_Init()º¯Êýµ÷ÓÃ
- * @param       ÎÞ
- * @retval      ÎÞ
+ * @brief       å®šæ—¶å™¨åº•å±‚é©±åŠ¨ï¼Œå¼€å¯æ—¶é’Ÿï¼Œè®¾ç½®ä¸­æ–­ä¼˜å…ˆçº§
+                æ­¤å‡½æ•°ä¼šè¢«HAL_TIM_Base_Init()å‡½æ•°è°ƒç”¨
+ * @param       æ— 
+ * @retval      æ— 
  */
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim)
 {
     if (htim->Instance == BTIM_TIMX_INT)
     {
-        BTIM_TIMX_INT_CLK_ENABLE();                     /* Ê¹ÄÜTIMxÊ±ÖÓ */
-        HAL_NVIC_SetPriority(BTIM_TIMX_INT_IRQn, 1, 3); /* ÇÀÕ¼1£¬×ÓÓÅÏÈ¼¶3 */
-        HAL_NVIC_EnableIRQ(BTIM_TIMX_INT_IRQn);         /* ¿ªÆôITMxÖÐ¶Ï */
+        BTIM_TIMX_INT_CLK_ENABLE();                     /* ä½¿èƒ½TIMxæ—¶é’Ÿ */
+        HAL_NVIC_SetPriority(BTIM_TIMX_INT_IRQn, 1, 3); /* æŠ¢å 1ï¼Œå­ä¼˜å…ˆçº§3 */
+        HAL_NVIC_EnableIRQ(BTIM_TIMX_INT_IRQn);         /* å¼€å¯ITMxä¸­æ–­ */
     }
 }
 
 /**
- * @brief       »ù±¾¶¨Ê±Æ÷TIMXÖÐ¶Ï·þÎñº¯Êý
- * @param       ÎÞ
- * @retval      ÎÞ
+ * @brief       åŸºæœ¬å®šæ—¶å™¨TIMXä¸­æ–­æœåŠ¡å‡½æ•°
+ * @param       æ— 
+ * @retval      æ— 
  */
 void BTIM_TIMX_INT_IRQHandler(void)
 {
-    HAL_TIM_IRQHandler(&g_timx_handle);                 /* ¶¨Ê±Æ÷»Øµ÷º¯Êý */
+    HAL_TIM_IRQHandler(&g_timx_handle);                 /* å®šæ—¶å™¨å›žè°ƒå‡½æ•° */
 }
 
 /**
- * @brief       »Øµ÷º¯Êý£¬¶¨Ê±Æ÷ÖÐ¶Ï·þÎñº¯Êýµ÷ÓÃ
- * @param       ÎÞ
- * @retval      ÎÞ
+ * @brief       å›žè°ƒå‡½æ•°ï¼Œå®šæ—¶å™¨ä¸­æ–­æœåŠ¡å‡½æ•°è°ƒç”¨
+ * @param       æ— 
+ * @retval      æ— 
  */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
     if (htim->Instance == BTIM_TIMX_INT)
     {
-        lv_tick_inc(1);                 /*lvglµÄ1msÐÄÌø*/
+        lv_tick_inc(1);                 /*lvglçš„1mså¿ƒè·³*/
     }
 }
