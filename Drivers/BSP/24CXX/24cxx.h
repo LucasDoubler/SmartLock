@@ -1,26 +1,4 @@
-/**
- ****************************************************************************************************
- * @file        24cxx.h
- * @author      ÕıµãÔ­×ÓÍÅ¶Ó(ALIENTEK)
- * @version     V1.0
- * @date        2022-09-06
- * @brief       24CXX Çı¶¯´úÂë
- * @license     Copyright (c) 2020-2032, ¹ãÖİÊĞĞÇÒíµç×Ó¿Æ¼¼ÓĞÏŞ¹«Ë¾
- ****************************************************************************************************
- * @attention
- *
- * ÊµÑéÆ½Ì¨:ÕıµãÔ­×Ó °¢²¨ÂŞ H743¿ª·¢°å
- * ÔÚÏßÊÓÆµ:www.yuanzige.com
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ¹«Ë¾ÍøÖ·:www.alientek.com
- * ¹ºÂòµØÖ·:openedv.taobao.com
- *
- * ĞŞ¸ÄËµÃ÷
- * V1.0 20220906
- * µÚÒ»´Î·¢²¼
- *
- ****************************************************************************************************
- */
+
 #ifndef __24CXX_H
 #define __24CXX_H
 
@@ -37,17 +15,17 @@
 #define AT24C128    16383
 #define AT24C256    32767
 
-/* ¿ª·¢°åÊ¹ÓÃµÄÊÇ24c02£¬ËùÒÔ¶¨ÒåEE_TYPEÎªAT24C02 */
+/* å¼€å‘æ¿ä½¿ç”¨çš„æ˜¯24c02ï¼Œæ‰€ä»¥å®šä¹‰EE_TYPEä¸ºAT24C02 */
 #define EE_TYPE     AT24C02
 
 /******************************************************************************************/
 
-void at24cxx_init(void);                                            /* ³õÊ¼»¯IIC */
-uint8_t at24cxx_check(void);                                        /* ¼ì²éÆ÷¼ş */
-uint8_t at24cxx_read_one_byte(uint16_t addr);                       /* Ö¸¶¨µØÖ·¶ÁÈ¡Ò»¸ö×Ö½Ú */
-void at24cxx_write_one_byte(uint16_t addr, uint8_t data);           /* Ö¸¶¨µØÖ·Ğ´ÈëÒ»¸ö×Ö½Ú */
-void at24cxx_write(uint16_t addr, uint8_t *pbuf, uint16_t datalen); /* ´ÓÖ¸¶¨µØÖ·¿ªÊ¼Ğ´ÈëÖ¸¶¨³¤¶ÈµÄÊı¾İ */
-void at24cxx_read(uint16_t addr, uint8_t *pbuf, uint16_t datalen);  /* ´ÓÖ¸¶¨µØÖ·¿ªÊ¼¶Á³öÖ¸¶¨³¤¶ÈµÄÊı¾İ */
+void at24cxx_init(void);                                            /* åˆå§‹åŒ–IIC */
+uint8_t at24cxx_check(void);                                        /* æ£€æŸ¥å™¨ä»¶ */
+uint8_t at24cxx_read_one_byte(uint16_t addr);                       /* æŒ‡å®šåœ°å€è¯»å–ä¸€ä¸ªå­—èŠ‚ */
+void at24cxx_write_one_byte(uint16_t addr, uint8_t data);           /* æŒ‡å®šåœ°å€å†™å…¥ä¸€ä¸ªå­—èŠ‚ */
+void at24cxx_write(uint16_t addr, uint8_t *pbuf, uint16_t datalen); /* ä»æŒ‡å®šåœ°å€å¼€å§‹å†™å…¥æŒ‡å®šé•¿åº¦çš„æ•°æ® */
+void at24cxx_read(uint16_t addr, uint8_t *pbuf, uint16_t datalen);  /* ä»æŒ‡å®šåœ°å€å¼€å§‹è¯»å‡ºæŒ‡å®šé•¿åº¦çš„æ•°æ® */
 
 #endif
 
