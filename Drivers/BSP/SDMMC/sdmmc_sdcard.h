@@ -1,26 +1,4 @@
-/**
- ****************************************************************************************************
- * @file        sdmmc_sdcard.h
- * @author      ÕıµãÔ­×ÓÍÅ¶Ó(ALIENTEK)
- * @version     V1.0
- * @date        2022-09-06
- * @brief       SD¿¨ Çı¶¯´úÂë
- * @license     Copyright (c) 2020-2032, ¹ãÖİÊĞĞÇÒíµç×Ó¿Æ¼¼ÓĞÏŞ¹«Ë¾
- ****************************************************************************************************
- * @attention
- *
- * ÊµÑéÆ½Ì¨:ÕıµãÔ­×Ó °¢²¨ÂŞ H743¿ª·¢°å
- * ÔÚÏßÊÓÆµ:www.yuanzige.com
- * ¼¼ÊõÂÛÌ³:www.openedv.com
- * ¹«Ë¾ÍøÖ·:www.alientek.com
- * ¹ºÂòµØÖ·:openedv.taobao.com
- *
- * ĞŞ¸ÄËµÃ÷
- * V1.0 20220906
- * µÚÒ»´Î·¢²¼
- *
- ****************************************************************************************************
- */
+
 
 #ifndef __SDMMC_SDCARD_H
 #define __SDMMC_SDCARD_H
@@ -28,58 +6,58 @@
 #include "./SYSTEM/sys/sys.h"
 
 
-/* ÓÃ»§ÅäÖÃÇø
- * SDMMCÊ±ÖÓ¼ÆËã¹«Ê½: SDMMC_CKÊ±ÖÓ = sdmmc_ker_ck / [2 * clkdiv]; ÆäÖĞ,sdmmc_ker_ckÀ´×Ôpll1_q_ck,Îª240Mhz
- * ×¢Òâ£ºSDMMC_INIT_CLK_DIV ÔÚHAL¿âÓĞ¶¨Òå£¬ÎÒÃÇÖ»Òª°ÑËüµÄÖµ¸ÄÎª300,¼´(0x12C),Çëµ½stm32h7xx_ll_sdmmc.hĞŞ¸Ä¡£
+/* ç”¨æˆ·é…ç½®åŒº
+ * SDMMCæ—¶é’Ÿè®¡ç®—å…¬å¼: SDMMC_CKæ—¶é’Ÿ = sdmmc_ker_ck / [2 * clkdiv]; å…¶ä¸­,sdmmc_ker_ckæ¥è‡ªpll1_q_ck,ä¸º240Mhz
+ * æ³¨æ„ï¼šSDMMC_INIT_CLK_DIV åœ¨HALåº“æœ‰å®šä¹‰ï¼Œæˆ‘ä»¬åªè¦æŠŠå®ƒçš„å€¼æ”¹ä¸º300,å³(0x12C),è¯·åˆ°stm32h7xx_ll_sdmmc.hä¿®æ”¹ã€‚
  */
-//#define SDMMC_INIT_CLK_DIV        300       /* SDMMC³õÊ¼»¯ÆµÂÊ£¬240M/(300*2)=400Khz,×î´ó400Kh */
+//#define SDMMC_INIT_CLK_DIV        300       /* SDMMCåˆå§‹åŒ–é¢‘ç‡ï¼Œ240M/(300*2)=400Khz,æœ€å¤§400Kh */
 
 
 /******************************************************************************************/
-/* SDMMC1µÄĞÅºÅÏß: SD1_D0 ~ SD1_D3/SD1_CLK/SD1_CMD Òı½Å ¶¨Òå 
- * Èç¹ûÄãÊ¹ÓÃÁËÆäËûÒı½Å×öSDMMC1µÄĞÅºÅÏß,ĞŞ¸ÄÕâÀïĞ´¶¨Òå¼´¿ÉÊÊÅä.
- * ×¢Òâ, ÕâÀï½öÖ§³ÖSDMMC1, ÎÒÃÇÊ¹ÓÃµÄÒ²ÊÇSDMMC1. ²»Ö§³ÖSDMMMC2.
- * ÁíÍâ, ÓÉÓÚSDMMC1µÄIO¿Ú¸´ÓÃ¹¦ÄÜ¶¼ÊÇAF12, ÕâÀï¾Í²»¶ÀÁ¢ÔÙ¶¨ÒåÃ¿¸öIO¿ÚµÄAF¹¦ÄÜÁË
+/* SDMMC1çš„ä¿¡å·çº¿: SD1_D0 ~ SD1_D3/SD1_CLK/SD1_CMD å¼•è„š å®šä¹‰ 
+ * å¦‚æœä½ ä½¿ç”¨äº†å…¶ä»–å¼•è„šåšSDMMC1çš„ä¿¡å·çº¿,ä¿®æ”¹è¿™é‡Œå†™å®šä¹‰å³å¯é€‚é….
+ * æ³¨æ„, è¿™é‡Œä»…æ”¯æŒSDMMC1, æˆ‘ä»¬ä½¿ç”¨çš„ä¹Ÿæ˜¯SDMMC1. ä¸æ”¯æŒSDMMMC2.
+ * å¦å¤–, ç”±äºSDMMC1çš„IOå£å¤ç”¨åŠŸèƒ½éƒ½æ˜¯AF12, è¿™é‡Œå°±ä¸ç‹¬ç«‹å†å®šä¹‰æ¯ä¸ªIOå£çš„AFåŠŸèƒ½äº†
  */
 
 #define SD1_D0_GPIO_PORT                GPIOC
 #define SD1_D0_GPIO_PIN                 GPIO_PIN_8
-#define SD1_D0_GPIO_CLK_ENABLE()        do{ __HAL_RCC_GPIOC_CLK_ENABLE(); }while(0)    /* ËùÔÚIO¿ÚÊ±ÖÓÊ¹ÄÜ */
+#define SD1_D0_GPIO_CLK_ENABLE()        do{ __HAL_RCC_GPIOC_CLK_ENABLE(); }while(0)    /* æ‰€åœ¨IOå£æ—¶é’Ÿä½¿èƒ½ */
 
 #define SD1_D1_GPIO_PORT                GPIOC
 #define SD1_D1_GPIO_PIN                 GPIO_PIN_9
-#define SD1_D1_GPIO_CLK_ENABLE()        do{ __HAL_RCC_GPIOC_CLK_ENABLE(); }while(0)    /* ËùÔÚIO¿ÚÊ±ÖÓÊ¹ÄÜ */
+#define SD1_D1_GPIO_CLK_ENABLE()        do{ __HAL_RCC_GPIOC_CLK_ENABLE(); }while(0)    /* æ‰€åœ¨IOå£æ—¶é’Ÿä½¿èƒ½ */
 
 #define SD1_D2_GPIO_PORT                GPIOC
 #define SD1_D2_GPIO_PIN                 GPIO_PIN_10
-#define SD1_D2_GPIO_CLK_ENABLE()        do{ __HAL_RCC_GPIOC_CLK_ENABLE(); }while(0)    /* ËùÔÚIO¿ÚÊ±ÖÓÊ¹ÄÜ */
+#define SD1_D2_GPIO_CLK_ENABLE()        do{ __HAL_RCC_GPIOC_CLK_ENABLE(); }while(0)    /* æ‰€åœ¨IOå£æ—¶é’Ÿä½¿èƒ½ */
 
 #define SD1_D3_GPIO_PORT                GPIOC
 #define SD1_D3_GPIO_PIN                 GPIO_PIN_11
-#define SD1_D3_GPIO_CLK_ENABLE()        do{ __HAL_RCC_GPIOC_CLK_ENABLE(); }while(0)    /* ËùÔÚIO¿ÚÊ±ÖÓÊ¹ÄÜ */
+#define SD1_D3_GPIO_CLK_ENABLE()        do{ __HAL_RCC_GPIOC_CLK_ENABLE(); }while(0)    /* æ‰€åœ¨IOå£æ—¶é’Ÿä½¿èƒ½ */
 
 #define SD1_CLK_GPIO_PORT               GPIOC
 #define SD1_CLK_GPIO_PIN                GPIO_PIN_12
-#define SD1_CLK_GPIO_CLK_ENABLE()       do{ __HAL_RCC_GPIOC_CLK_ENABLE(); }while(0)    /* ËùÔÚIO¿ÚÊ±ÖÓÊ¹ÄÜ */
+#define SD1_CLK_GPIO_CLK_ENABLE()       do{ __HAL_RCC_GPIOC_CLK_ENABLE(); }while(0)    /* æ‰€åœ¨IOå£æ—¶é’Ÿä½¿èƒ½ */
 
 #define SD1_CMD_GPIO_PORT               GPIOD
 #define SD1_CMD_GPIO_PIN                GPIO_PIN_2
-#define SD1_CMD_GPIO_CLK_ENABLE()       do{ __HAL_RCC_GPIOD_CLK_ENABLE(); }while(0)    /* ËùÔÚIO¿ÚÊ±ÖÓÊ¹ÄÜ */
+#define SD1_CMD_GPIO_CLK_ENABLE()       do{ __HAL_RCC_GPIOD_CLK_ENABLE(); }while(0)    /* æ‰€åœ¨IOå£æ—¶é’Ÿä½¿èƒ½ */
 
 /******************************************************************************************/
 
-#define SD_TIMEOUT             ((uint32_t)100000000)                                   /* ³¬Ê±Ê±¼ä */
-#define SD_TRANSFER_OK         ((uint8_t)0x00)                                         /* ´«ÊäÍê³É */
-#define SD_TRANSFER_BUSY       ((uint8_t)0x01)                                         /* ¿¨ÕıÃ¦ */
+#define SD_TIMEOUT             ((uint32_t)100000000)                                   /* è¶…æ—¶æ—¶é—´ */
+#define SD_TRANSFER_OK         ((uint8_t)0x00)                                         /* ä¼ è¾“å®Œæˆ */
+#define SD_TRANSFER_BUSY       ((uint8_t)0x01)                                         /* å¡æ­£å¿™ */
 
-/* ¸ù¾İ SD_HandleTypeDef ¶¨ÒåµÄºê£¬ÓÃÓÚ¿ìËÙ¼ÆËãÈİÁ¿ */
+/* æ ¹æ® SD_HandleTypeDef å®šä¹‰çš„å®ï¼Œç”¨äºå¿«é€Ÿè®¡ç®—å®¹é‡ */
 #define SD_TOTAL_SIZE_BYTE(__Handle__)  (((uint64_t)((__Handle__)->SdCard.LogBlockNbr)*((__Handle__)->SdCard.LogBlockSize))>>0)
 #define SD_TOTAL_SIZE_KB(__Handle__)    (((uint64_t)((__Handle__)->SdCard.LogBlockNbr)*((__Handle__)->SdCard.LogBlockSize))>>10)
 #define SD_TOTAL_SIZE_MB(__Handle__)    (((uint64_t)((__Handle__)->SdCard.LogBlockNbr)*((__Handle__)->SdCard.LogBlockSize))>>20)
 #define SD_TOTAL_SIZE_GB(__Handle__)    (((uint64_t)((__Handle__)->SdCard.LogBlockNbr)*((__Handle__)->SdCard.LogBlockSize))>>30)
 
-extern SD_HandleTypeDef        g_sd_handle;                                            /* SD¿¨¾ä±ú */
-extern HAL_SD_CardInfoTypeDef  g_sd_card_info_handle;                                  /* SD¿¨ĞÅÏ¢½á¹¹Ìå */
+extern SD_HandleTypeDef        g_sd_handle;                                            /* SDå¡å¥æŸ„ */
+extern HAL_SD_CardInfoTypeDef  g_sd_card_info_handle;                                  /* SDå¡ä¿¡æ¯ç»“æ„ä½“ */
 
 /******************************************************************************************/
 
